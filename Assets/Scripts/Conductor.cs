@@ -148,6 +148,9 @@ public class Conductor : MonoBehaviour
                             case 0:
                                 attackSpells.SpikeAttack();
                                 break;
+                            case 1:
+                                attackSpells.Heal();
+                                break;
                             default:
                                 Debug.Log("No spell implemented");
                                 break;

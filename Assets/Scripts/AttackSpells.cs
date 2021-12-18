@@ -1,16 +1,22 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class AttackSpells : MonoBehaviour
 {
     [SerializeField] GameObject spikeObject;
     [SerializeField] float spikeRange = 10f;
-    
+
+    [SerializeField] private GameObject barrier;
+    [SerializeField] private Color healColor;
+
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip spikeSound;
     [SerializeField] private AudioClip healSound;
+
+    private Color barrierDefaultColor;
 
     public void SpikeAttack()
     {
@@ -30,5 +36,21 @@ public class AttackSpells : MonoBehaviour
                 enemy.GetComponent<Health>().Damage(50);
             }
         }
+    }
+
+    public void Heal()
+    {
+        FadeInBarrierColor();
+    }
+
+    private void FadeInBarrierColor()
+    {
+        barrierDefaultColor = barrier.GetComponent<Renderer>().material.color;
+        barrier.GetComponent<Renderer>().material.DOColor(healColor, 0.8f).OnComplete(FadeOutBarrierColor);
+    }
+
+    private void FadeOutBarrierColor()
+    {
+        barrier.GetComponent<Renderer>().material.DOColor(barrierDefaultColor, 0.8f);
     }
 }
