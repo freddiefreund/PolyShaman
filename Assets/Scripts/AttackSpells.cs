@@ -10,18 +10,11 @@ public class AttackSpells : MonoBehaviour
     
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip spikeSound;
-    [SerializeField] AudioClip healSound;
+    [SerializeField] private AudioClip healSound;
 
-    [SerializeField] GameObject spike;
-
-    void Start()
-    {
-
-    }
-    
     public void SpikeAttack()
     {
-        spike.SetActive(true);
+        spikeObject.SetActive(true);
         audioSource.clip = spikeSound;
         audioSource.Play();
 

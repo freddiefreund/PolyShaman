@@ -41,7 +41,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6239789572189379429}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd925a9527008434f9516d82aec564b3, type: 3}
+  m_Script: {fileID: 11500000, guid: 2d7c15f19075ff6468e00c277460b95b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   songBpm: 0

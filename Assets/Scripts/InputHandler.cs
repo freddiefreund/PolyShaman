@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class InputHandler : MonoBehaviour
-{
-    [SerializeField] private Conductor conductor;
-
+{ 
+    private Conductor conductor;
     private bool holdDrum1 = false;
     private bool holdDrum2 = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        conductor = GetComponent<Conductor>();
     }
 
     // Update is called once per frame
