@@ -192,6 +192,7 @@ public class Conductor : MonoBehaviour
 
     public bool IsHitSimultaneously()
     {
+        float drumDifference = currentLeftDrumHit - currentRightDrumHit;
         return Mathf.Abs(currentLeftDrumHit - currentRightDrumHit) <= offsetThreshold && currentLeftDrumHit > 0 && currentRightDrumHit > 0;
     }
 }

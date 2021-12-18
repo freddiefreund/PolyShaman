@@ -257,7 +257,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: da00aceec5da205459f15259020db175, type: 2}
+  - {fileID: 2100000, guid: 9853dbf9b6b7b414298d4f67e190286c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -490,6 +490,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2321310035426199378, guid: 218d4088d31a1c24cb29d6d93ff66124, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5f44d3a75f7dcda48b4f28d2fedebecf, type: 3}
     - target: {fileID: 2321310035848069586, guid: 218d4088d31a1c24cb29d6d93ff66124, type: 3}
       propertyPath: m_Name
       value: GameManager
@@ -546,6 +550,10 @@ PrefabInstance:
       propertyPath: attackSpells
       value: 
       objectReference: {fileID: 1385614561}
+    - target: {fileID: 2321310036005572941, guid: 218d4088d31a1c24cb29d6d93ff66124, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: c00e14cfa31956647a4888fa57dee96c, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 218d4088d31a1c24cb29d6d93ff66124, type: 3}
 --- !u!1001 &4574903238386169756
