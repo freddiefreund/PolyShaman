@@ -14,7 +14,7 @@ public class AttackSpells : MonoBehaviour
 
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip spikeSound;
-    [SerializeField] private AudioClip healSound;
+    [SerializeField] AudioClip healSound;
 
     private Color barrierDefaultColor;
 
@@ -40,6 +40,8 @@ public class AttackSpells : MonoBehaviour
 
     public void Heal()
     {
+        audioSource.clip = healSound;
+        audioSource.Play();
         FadeInBarrierColor();
     }
 
