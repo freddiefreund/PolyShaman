@@ -85,53 +85,63 @@ public class Conductor : MonoBehaviour
 
         if (isInCombo)
         {
-            bool someIsPossible = false;
+            bool finishIsPossible = false;
+            // When left drum hit detected
             if (currentLeftDrumHit > lastLeftDrumHit)
             {
-                foreach (Polyrhythm polyrhythm in polyrhythms)
+                if (leftHandStreak > 0)
                 {
-                    if (polyrhythm.IsPossible && leftHandStreak > 0)
+                    foreach (Polyrhythm polyrhythm in polyrhythms)
                     {
-                        float lowerLimit = (currentLeftDrumHit - lastLeftDrumHit) - offsetThreshold;
-                        if (polyrhythm.LeftHandInterval >= lowerLimit)
+                        if (polyrhythm.IsPossible)
                         {
-                            someIsPossible = true;
+                            float lowerLimit = (currentLeftDrumHit - lastLeftDrumHit) - offsetThreshold;
+                            if (polyrhythm.LeftHandInterval >= lowerLimit)
+                            {
+                                finishIsPossible = true;
+                            }
+                            else
+                            {
+                                polyrhythm.IsPossible = false;
+                            }
                         }
-                        else
-                        {
-                            polyrhythm.IsPossible = false;
-                        }
-                    }
+                    }   
                 }
-                if (someIsPossible || leftHandStreak == 0) leftHandStreak += 1;
+                if (finishIsPossible || leftHandStreak == 0) leftHandStreak += 1;
                 lastLeftDrumHit = currentLeftDrumHit;
             }
+            // When right drum hit detected
             if (currentRightDrumHit > lastRightDrumHit)
             {
-                foreach (Polyrhythm polyrhythm in polyrhythms)
+                if (rightHandStreak > 0)
                 {
-                    if (polyrhythm.IsPossible && rightHandStreak > 0)
+                    foreach (Polyrhythm polyrhythm in polyrhythms)
                     {
-                        float lowerLimit = (currentRightDrumHit - lastRightDrumHit) - offsetThreshold;
-                        if (polyrhythm.RightHandInterval >= lowerLimit)
+                        if (polyrhythm.IsPossible)
                         {
-                            someIsPossible = true;
-                        }
-                        else
-                        {
-                            polyrhythm.IsPossible = false;
+                            float lowerLimit = (currentRightDrumHit - lastRightDrumHit) - offsetThreshold;
+                            if (polyrhythm.RightHandInterval >= lowerLimit)
+                            {
+                                finishIsPossible = true;
+                            }
+                            else
+                            {
+                                polyrhythm.IsPossible = false;
+                            }
                         }
                     }
                 }
-                if (someIsPossible || rightHandStreak == 0) rightHandStreak += 1;
+                if (finishIsPossible || rightHandStreak == 0) rightHandStreak += 1;
                 lastRightDrumHit = currentRightDrumHit;
             }
-            if (someIsPossible)
+            // Check if combo is finished
+            if (finishIsPossible)
             {
                 foreach(Polyrhythm polyrhythm in polyrhythms)
                 {
                     if (polyrhythm.LeftCountNeeded == leftHandStreak &&
-                        polyrhythm.RightCountNeeded == rightHandStreak)
+                        polyrhythm.RightCountNeeded == rightHandStreak &&
+                        polyrhythm.IsPossible)
                     {
                         switch(polyrhythm.Id)
                         {
@@ -147,19 +157,22 @@ public class Conductor : MonoBehaviour
                     }
                 }
             }
-
-            //Check if Time exceeds hits
+            // Check if Time exceeds hits
             foreach (Polyrhythm polyrhythm in polyrhythms)
             {
-                float upperLeftLimit = currentLeftDrumHit + offsetThreshold;
-                float upperRightLimit = currentLeftDrumHit + offsetThreshold;
-                if (polyrhythm.LeftHandInterval > upperLeftLimit ||
-                    polyrhythm.RightHandInterval > upperRightLimit)
+                if (polyrhythm.IsPossible)
                 {
-                    if (leftHandStreak > 0 && rightHandStreak > 0) polyrhythm.IsPossible = false;
+                    float upperLeftLimit = currentLeftDrumHit + polyrhythm.LeftHandInterval + offsetThreshold;
+                    float upperRightLimit = currentRightDrumHit + polyrhythm.RightHandInterval + offsetThreshold;
+
+                    if (songPositionInBeats > upperLeftLimit || songPositionInBeats > upperRightLimit)
+                    {
+                        Debug.Log($"Deactivate {polyrhythm.ToString()}");
+                        polyrhythm.IsPossible = false;
+                    }   
                 }
             }
-
+            // Check if any polyrythm can be finished
             bool exitCombo = true;
             foreach (Polyrhythm polyrhythm in polyrhythms)
             {
@@ -192,7 +205,8 @@ public class Conductor : MonoBehaviour
 
     public bool IsHitSimultaneously()
     {
-        float drumDifference = currentLeftDrumHit - currentRightDrumHit;
-        return Mathf.Abs(currentLeftDrumHit - currentRightDrumHit) <= offsetThreshold && currentLeftDrumHit > 0 && currentRightDrumHit > 0;
+        float drumDifference = Mathf.Abs(currentLeftDrumHit - currentRightDrumHit);
+        bool hitSimultaneously = drumDifference <= offsetThreshold && currentLeftDrumHit > 0 && currentRightDrumHit > 0;
+        return hitSimultaneously;
     }
 }
