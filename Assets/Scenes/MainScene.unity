@@ -1426,6 +1426,10 @@ PrefabInstance:
       propertyPath: spikeObject
       value: 
       objectReference: {fileID: 531304546}
+    - target: {fileID: 1528156558771637847, guid: a7770872c36c6ef4aa03c4453597fc0c, type: 3}
+      propertyPath: playOnAwake
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4574903239754677059, guid: a7770872c36c6ef4aa03c4453597fc0c, type: 3}
       propertyPath: m_Name
       value: LevelBase
